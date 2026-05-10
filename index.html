@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es-DO">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Validación Cédula RD — Módulo 10</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,600;0,9..40,700;1,9..40,400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <div class="decor" aria-hidden="true">
+      <div class="decor__blob decor__blob--1"></div>
+      <div class="decor__blob decor__blob--2"></div>
+      <span class="decor__leaf">🌿</span>
+      <span class="decor__leaf">🌸</span>
+    </div>
+
+    <main class="wrap">
+      <header class="header">
+        <span class="badge">República Dominicana · CIE</span>
+        <h1>Validador de cédula (módulo 10)</h1>
+        <p>
+          Servicio educativo: comprueba el dígito verificador según el algoritmo usado en la
+          Cédula de Identidad y Electoral. Interfaz clara con salida en JSON y XML.
+        </p>
+      </header>
+
+      <div class="grid">
+        <section class="card">
+          <h2>Ingreso</h2>
+          <p class="card__hint">Formato sugerido: 000-0000000-0 (11 dígitos en total).</p>
+          <form id="form-cedula" class="form-row" novalidate>
+            <label for="cedula">Número de cédula</label>
+            <input
+              id="cedula"
+              name="cedula"
+              type="text"
+              inputmode="numeric"
+              autocomplete="off"
+              placeholder="402-1234567-8"
+              maxlength="13"
+              value="402-1234567-8"
+            />
+            <div class="actions">
+              <button type="submit" class="btn-primary">Validar</button>
+            </div>
+          </form>
+          <div id="status" class="status status--err" hidden></div>
+          <div class="note">
+            <strong>Importante:</strong> esto valida solo el algoritmo matemático (módulo 10), no
+            si la persona existe en el padrón de la JCE. La JCE no publica una API pública gratuita
+            para esa consulta; los proveedores comerciales (p. ej. Verifik) ofrecen KYC de pago.
+          </div>
+          <div class="api-box">
+            <strong>API local (JSON / XML)</strong>
+            <span>Con el servidor Node en ejecución:</span>
+            <code>GET http://localhost:3000/api/cedula?numero=40212345678</code>
+            <code>GET http://localhost:3000/api/cedula.xml?numero=40212345678</code>
+            <code>POST http://localhost:3000/api/cedula · body JSON {"numero":"40212345678"}</code>
+          </div>
+        </section>
+
+        <section class="card outputs">
+          <h2>Respuesta del servicio</h2>
+          <div class="tabs">
+            <span class="tab tab--active">JSON</span>
+            <span class="tab">XML</span>
+          </div>
+          <div class="pre-wrap">
+            <pre id="out-json"></pre>
+            <div class="copy-row">
+              <button type="button" id="copy-json" class="btn-small">Copiar JSON</button>
+            </div>
+          </div>
+          <div class="pre-wrap" style="margin-top: 1rem">
+            <pre id="out-xml"></pre>
+            <div class="copy-row">
+              <button type="button" id="copy-xml" class="btn-small">Copiar XML</button>
+            </div>
+          </div>
+        </section>
+      </div>
+
+    </main>
+
+    <script src="js/validator.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>
